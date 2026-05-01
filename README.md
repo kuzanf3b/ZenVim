@@ -3,7 +3,7 @@
 
 ## 🧰 Requirements
 
-- Neovim ≥ 0.9.0  
+- Neovim 0.12+
 - Node.js ≥ 16 (JS/TS tools)  
 - Python ≥ 3.8 (Python LSPs/formatters)  
 - Lua 5.1+  
