@@ -1,18 +1,36 @@
 return {
 	"saghen/blink.cmp",
-	event = "InsertEnter",
-	build = "cargo build --release",
 	dependencies = {
-		"L3MON4D3/LuaSnip",
-		"rafamadriz/friendly-snippets",
+		"saghen/blink.lib",
+		-- optional: provides snippets for the snippet source
 		"fang2hou/blink-copilot",
+		"rafamadriz/friendly-snippets",
 	},
+	build = function()
+		-- build the fuzzy matcher, wait up to 60 seconds
+		-- you can use `gb` in `:Lazy` to rebuild the plugin as needed
+		require("blink.cmp").build():wait(60000)
+	end,
+
+	---@module 'blink.cmp'
+	---@type blink.cmp.Config
 	opts = {
-		snippets = { preset = "luasnip" },
+		-- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
+		-- 'super-tab' for mappings similar to vscode (tab to accept)
+		-- 'enter' for enter to accept
+		-- 'none' for no mappings
+		--
+		-- All presets have the following mappings:
+		-- C-space: Open menu or open docs if already open
+		-- C-n/C-p or Up/Down: Select next/previous item
+		-- C-e: Hide menu
+		-- C-k: Toggle signature help (if signature.enabled = true)
+		--
 		keymap = {
 			preset = "default",
 			["<CR>"] = { "accept", "fallback" },
 		},
+
 		completion = {
 			menu = {
 				auto_show = true,
@@ -24,8 +42,9 @@ return {
 			documentation = { auto_show = true },
 			ghost_text = { enabled = true },
 		},
+
 		signature = { enabled = true },
-		fuzzy = { implementation = "lua" },
+
 		sources = {
 			default = {
 				"lazydev",
@@ -49,9 +68,7 @@ return {
 				},
 			},
 		},
+
+		fuzzy = { implementation = "rust" }, -- change "lua" if dont wanna exercise
 	},
-	config = function(_, opts)
-		require("luasnip.loaders.from_vscode").load()
-		require("blink.cmp").setup(opts)
-	end,
 }

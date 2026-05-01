@@ -145,18 +145,18 @@ return {
 				},
 			},
 
-			gopls = {
-				settings = {
-					gopls = {
-						gofumpt = true,
-						analyses = {
-							unusedparams = true,
-							shadow = true,
-						},
-						staticcheck = true,
-					},
-				},
-			},
+			-- gopls = {
+			-- 	settings = {
+			-- 		gopls = {
+			-- 			gofumpt = true,
+			-- 			analyses = {
+			-- 				unusedparams = true,
+			-- 				shadow = true,
+			-- 			},
+			-- 			staticcheck = true,
+			-- 		},
+			-- 	},
+			-- },
 		}
 
 		for name, config in pairs(servers) do
